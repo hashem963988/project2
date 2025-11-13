@@ -1,17 +1,50 @@
 name: myworkflow
 on:
   workflow_dispatch:
+  input:
+    environment:
+      description: "Choose environment"
+      required: true
+      default: staging
+      type: choice
+      options:
+        - staging
+        - production
 
 jobs:
-  job1:
+  Build:
     runs-on: ubuntu-latest
     steps:
-      - name: Display a message
-        run: echo "Hello from myworkflow"
-  job2:
+      - name: checkout Repository
+        uses: actions/checkout@v4
+
+
+      - name: login to docker registry
+        run: |
+          echo ${DOCKER_PASS_WORD} | docker login -u hashem --password-stdin >/dev/null 2>&1
+          if [ $? -eq 0 ]; then
+            echo "Logged in successfully to Docker registry"
+          else
+            echo "Failed to login to Docker registry"
+          fi
+
+
+      - name: build docker image
+        run: |
+          docker build -t myapp:latest .
+          docker push myapp:latest
+
+          
+  Test:
     runs-on: ubuntu-latest
     steps:
-      - name: Print the current working directory
-        run: echo $(pwd)
+      - name: run code testing against the application
+        run: echo "run tests..."
     needs:
       - job1
+
+  Deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploy to the environment
+        run: echo "Deploying to the environment."
