@@ -1,4 +1,4 @@
-name: First Workflow
+name: Main Workflow
 
 on: # this workflow will be triggered once the main branch is pushed
   push:
