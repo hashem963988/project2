@@ -21,4 +21,4 @@ jobs:
       uses: actions/checkout@v4
 
     - name: run tests against the code
-      run: echo "tests"
+      run: bash test.sh
