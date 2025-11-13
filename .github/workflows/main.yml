@@ -15,4 +15,5 @@ jobs:
           echo "Someone has starred this repository or unstarred it."
           echo "Event information:"
           echo $GITHUB_EVENT_PATH
+          cat $GITHUB_EVENT_PATH
       
