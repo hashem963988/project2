@@ -1,0 +1,17 @@
+name: myworkflow
+on:
+  workflow_dispatch:
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display a message
+        run: echo "Hello from myworkflow"
+  job2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print the current working directory
+        run: echo $(pwd)
+    needs:
+      - job1
