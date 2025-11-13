@@ -1,15 +1,15 @@
 name: myworkflow
 on:
   workflow_dispatch:
-  input:
-    environment:
-      description: "Choose environment"
-      required: true
-      default: staging
-      type: choice
-      options:
-        - staging
-        - production
+    input:
+      environment:
+        description: "Choose environment"
+        required: true
+        default: staging
+        type: choice
+        options:
+          - staging
+          - production
 
 jobs:
   Build:
