@@ -2,7 +2,7 @@ name: myworkflow
 on:
   workflow_dispatch:
     inputs:
-      environment:
+      deploy_environment:
         description: "Choose environment"
         required: true
         default: "staging"
@@ -10,6 +10,9 @@ on:
         options:
           - staging
           - production
+
+env:
+  DEPLOY_ENV: ${{ github.event.inputs.deploy_environment }}
 
 jobs:
   Build:
@@ -49,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: deploy to the environment
-        run: echo "Deploying to the environment."
+        run: echo "Deploying to the ${DEPLOY_ENV}"
     needs:
       - Build
       - Test
