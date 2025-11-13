@@ -1,4 +1,5 @@
-
+from .gettime import timenow
 
 def greeting(user_input):
-    print (f"Hi {user_input}")
+    now = timenow()
+    print (f"{now} Hi {user_input}")
