@@ -21,18 +21,20 @@ jobs:
 
       - name: login to docker registry
         run: |
-          echo ${DOCKER_PASS_WORD} | docker login -u hashem --password-stdin >/dev/null 2>&1
-          if [ $? -eq 0 ]; then
-            echo "Logged in successfully to Docker registry"
-          else
-            echo "Failed to login to Docker registry"
-          fi
+          echo "login to docker registry"
+          # echo ${DOCKER_PASS_WORD} | docker login -u hashem --password-stdin >/dev/null 2>&1
+          # if [ $? -eq 0 ]; then
+          #   echo "Logged in successfully to Docker registry"
+          # else
+          #   echo "Failed to login to Docker registry"
+          # fi
 
 
       - name: build docker image
         run: |
-          docker build -t myapp:latest .
-          docker push myapp:latest
+          echo "docker build & push"
+          # docker build -t myapp:latest .
+          # docker push myapp:latest
 
           
   Test:
