@@ -1,0 +1,32 @@
+name: manual
+
+on:
+  workflow_dispatch:
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: print message
+        run: echo "Hello World!"
+  
+  job2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: print date and time
+        run: echo $(date)
+
+    needs: [job1]
+
+  job3:
+    runs-on: ubuntu-latest
+    steps:
+      - name: list files and directories
+        run: ls -la
+
+    needs:
+      - job1
+      - job2
