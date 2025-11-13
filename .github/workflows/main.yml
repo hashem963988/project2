@@ -10,7 +10,7 @@ jobs:
       - name: checkout repository
         uses: actions/checkout@v3
 
-      - name: Log start event
+      - name: Log star event
         run: |
           echo "Someone has starred this repository or unstarred it."
           echo "Event information:"
