@@ -1,0 +1,24 @@
+name: Push or PR triggering
+
+on:
+  push:
+    branches:
+      - main
+      - "release/**" # eg. release/v1.0.0 or release/hashem
+    # paths:
+    #   - "src/**"
+  pull_request:
+    branches:
+      - main
+      - "release/**"
+            
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: run tests against the code
+      run: echo "tests"
