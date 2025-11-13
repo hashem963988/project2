@@ -41,10 +41,13 @@ jobs:
       - name: run code testing against the application
         run: echo "run tests..."
     needs:
-      - job1
+      - Build
 
   Deploy:
     runs-on: ubuntu-latest
     steps:
       - name: deploy to the environment
         run: echo "Deploying to the environment."
+    needs:
+      - Build
+      - Test
