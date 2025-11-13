@@ -1,0 +1,5 @@
+*.log
+.env
+*.code-workspace
+__pycache__/
+notes.md
