@@ -1,4 +1,4 @@
-name: Start Event Workflow
+name: Star Event Workflow
 on:
   watch:
 
