@@ -1,19 +1,21 @@
-name: Star Event Workflow
-on:
-  watch:
+name: First Workflow
+
+on: # this workflow will be triggered once the main branch is pushed
+  push:
+    branches: [main]
 
 
 jobs:
-  log-star-event:
+  example-job:
     runs-on: ubuntu-latest
-    steps:
-      - name: checkout repository
-        uses: actions/checkout@v3
 
-      - name: Log star event
-        run: |
-          echo "Someone has starred this repository or unstarred it."
-          echo "Event information:"
-          echo $GITHUB_EVENT_PATH
-          cat $GITHUB_EVENT_PATH
-      
+    steps:
+
+      name: print a welcome message
+      run: echo "Welcome to our first github actions workflow!"
+
+      name: Checkout repository
+      uses: actions/checkout@v4.2.2
+
+      name: List repository files
+      run: ls -la
