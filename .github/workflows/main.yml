@@ -19,3 +19,12 @@ jobs:
 
     - name: List repository files
       run: ls -la
+
+    - name: run a shell script inside the step
+      run: |
+        #!/bin/bash
+
+        project_name="project2"
+        echo $project_name
+
+        exit 0
