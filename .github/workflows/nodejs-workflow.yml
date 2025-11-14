@@ -1,0 +1,70 @@
+name: nodejs workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: install dependencies
+        run: |
+          #npm run install
+          echo "prepare"
+          mkdir -p node_modules/
+          echo "Hi" > node_modules/test.txt
+        working_directory: .
+        shell: bash
+
+      - name: caching node_modules/ directory
+        uses: actions/cache@v3
+        with:
+          path: node_modules/
+          key: ${{ runner.os }}-build-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-build-
+
+    test:
+      runs-on: ubuntu-latest
+      needs: prepare
+      steps:
+        - name: checkout
+          uses: actions/checkout@v4
+
+        - name: get node_modules/ directory from cache
+          uses: actions/cache@v3
+          with:
+            path: node_modules/
+            key: ${{ runner.os }}-build-${{ github.sha }}
+            restore-keys: |
+              ${{ runner.os }}-build-
+
+        - name: runs tests against the source code
+          run: |
+            #npm run test
+            echo "test"
+            ls -la node_modules/
+
+    build:
+      runs-on: ubuntu-latest
+      needs: [prepare, test]
+      steps:
+        - name: checkout
+          uses: actions/checkout@v4
+
+        - name: get node_modules/ directory from cache
+          uses: actions/cache@v3
+          with:
+            path: node_modules/
+            key: ${{ runner.os }}-build-${{ github.sha }}
+            restore-keys: |
+              ${{ runner.os }}-build-
+
+        - name: build the app
+          run: |
+            #npm run build
+            echo "build"
+            cat node_modules/test.txt
