@@ -1,10 +1,14 @@
 name: Workflow2 for Consume Files
 on:
-  workflow_dispatch:
+  workflow_run:
+    workflows: ["Workflow1 for Generate Files"]
+    types:
+      - completed
 
 jobs:
   process:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: checkout repo
         uses: actions/checkout@v4
@@ -14,7 +18,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: generated-files
-          # GitHub API token is automatically available
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
 
       - name: Use files which have been artifacted from workflow1
