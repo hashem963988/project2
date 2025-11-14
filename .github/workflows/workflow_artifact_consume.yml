@@ -18,7 +18,9 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: generated-files
+          path: generated/
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: ${{ github.event.workflow_run.id }}
 
 
       - name: Use files which have been artifacted from workflow1
