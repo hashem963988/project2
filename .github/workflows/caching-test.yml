@@ -1,0 +1,47 @@
+name: caching test workflow
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  create_some_files:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+
+      - name: create output file
+        run: |
+          echo "create output text file for testing"
+          mkdir output/
+          echo "Hello World" > ./output/output.txt
+
+      - name: Caching the files
+        uses: actions/cache@v3
+        with:
+          path: output/
+          key: ${{ runner.os }}-build-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-build-
+
+
+
+  read_the_files:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Restore cache
+        uses: actions/cache@v3
+        with:
+          path: output/
+          key: ${{ runner.os }}-build-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-build-
+
+
+      - name: read the files
+        run: cat ./output/output.txt
+
+    needs:
+      - create_some_files
+
