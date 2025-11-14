@@ -1,0 +1,21 @@
+name: Workflow2 for Consume Files
+on:
+  workflow_dispatch:
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+
+
+      - name: Download artifact from workflow1
+        uses: actions/download-artifact@v4
+        with:
+          name: generated-files
+          # GitHub API token is automatically available
+
+
+      - name: Use files which have been artifacted from workflow1
+        run: cat generated/file.txt

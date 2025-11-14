@@ -1,0 +1,23 @@
+name: Workflow1 for Generate Files
+on: push
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+
+
+      - name: Generate files
+        run: |
+          mkdir -p generated
+          echo "data from workflow1" > generated/file.txt
+
+          
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-files
+          path: generated/
+          retention-days: 30
