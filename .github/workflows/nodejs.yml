@@ -16,7 +16,7 @@ jobs:
           echo "prepare"
           mkdir -p node_modules/
           echo "Hi" > node_modules/test.txt
-        working_directory: .
+        working-directory: .
         shell: bash
 
       - name: caching node_modules/ directory
